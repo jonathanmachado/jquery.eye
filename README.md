@@ -68,13 +68,13 @@ $('.some-div').eye({
 
 ```javascript
 // Pause a watch
-$('.some-element').eye('pause');
+$('.some-div').eye('pause');
 
 // Re-start a paused watch
-$('.some-element').eye('start');
+$('.some-div').eye('start');
 
 // Return the status of a watched element
-$('.some-element').eye('status');
+$('.some-div').eye('status');
 
 // Remove a watched property from a watch
 $('.some-div').eye('unwatch', 'border-color');
@@ -96,6 +96,6 @@ See `example.html` in examples folder.
 
 ### Changelog
 
-#### Version 1.0
+#### Version 1.0.0
 
 * initial version

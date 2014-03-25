@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Eye Example</title>
+    <style>
+        section {
+            margin-bottom: 30px;
+        }
+        button {
+            margin: 5px 0 0 0;
+        }
+        .watch-container {
+            height: 200px;
+            border: 2px dashed deeppink;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+        .block-btn {
+            display: block;
+        }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery.eye.min.js"></script>
+</head>
+<body>
+<h1>jQuery Eye Example</h1>
+<h2>Click the buttons to observe tracked changes.</h2>
+<section>
+    <button id="01">Pause Watches</button>
+    <button id="02">Start Watches</button>
+    <button id="03">Status of Watches</button>
+    <button id="04">Un-Watch A Property</button>
+</section>
+<section>
+    <div class="some-div watch-container" border="2">
+        A trivial DIV with properties we've registered to watch for changes on.
+    </div>
+    <h4>Alter properties watched on the above DIV:</h4>
+    <button id="1" class="block-btn">Toggle contentEditable (Element Property)</button>
+    <button id="2" class="block-btn">Change 'background-color' (CSS Property)</button>
+    <button id="3" class="block-btn">Change jQuery.width() (jQuery Return Value)</button>
+    <button id="4" class="block-btn">Change jQuery.attr('border')</button>
+    <button id="5" class="block-btn">Toggle jQuery.hasClass('.some-class')</button>
+</section>
+
+<script>
+    $(document).ready(function() {
+
+        // Register the element to watch and the properties to watch
+        $('.some-div').eye({
+            'contentEditable': function( oldVal, newVal, elm ) {
+                $(elm).prepend('<div>DIV\'s contentEditable property changed from: <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+            },
+            'background-color': function( oldVal, newVal, elm ) {
+                $(elm).prepend('<div>DIV\'s background-color changed from <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+            },
+            'border-color': {
+                onChange: function( oldVal, newVal, elm, args ) {
+                    //console.log('Border Color Changed!');
+                },
+                onInterval: function( currValue, elm, args ) {
+
+                    // Execute any code you want EVERY interval of the watch
+                    $(elm).css('border-color', '#' + Math.floor(Math.random()*16777215).toString(16));
+                }
+            }
+        }, 400);
+
+
+        // Register the element to watch and the properties to watch
+        $('.some-div').eye({
+            'width()': function( oldVal, newVal, elm ) {
+                $(elm).prepend('<div>DIV\'s jQuery.width() return value changed from <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+            },
+            'attr()': {
+                args: ['border'],
+                onChange: function( oldVal, newVal, elm ) {
+                    $(elm).prepend('<div>DIV\'s jQuery.attr(\'border\') return value changed from <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+                }
+            }
+        }, 300);
+
+
+        // Watch for the addition of the class 'some-class' to the DIV
+        $('.some-div').eye({
+            speed: 250,
+            'hasClass()': {
+                args: ['some-class'],
+                onChange: function( oldVal, newVal, elm, args ) {
+                    $(elm).prepend('<div>DIV\'s hasClass(\'some-class\') return value changed from <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+                },
+                onInterval: function() {
+                    //console.log('happening');
+                }
+            }
+        });
+
+        
+        // Event handlers for Eye.method buttons
+        $('#01').click(function() {
+            $('.some-div').prepend('<div>Watches on DIV <strong>paused</strong>.</div>');
+
+            // Pause any watches on element(s)
+            $('.some-div').eye('pause');
+        });
+        $('#02').click(function() {
+            $('.some-div').prepend('<div>Watches on DIV <strong>started</strong>.</div>');
+
+            // Start any paused watches on element(s)
+            $('.some-div').eye('start');
+        });
+        $('#03').click(function() {
+            $('.some-div').prepend('<div>Status of watches on DIV: <strong>' + $('.some-div').eye('status') + '</strong></div>');
+        });
+        $('#04').click(function() {
+            $('.some-div').eye('unwatch', 'border-color');
+            $('.some-div').prepend('<div>Property border-color is no longer being watched!</div>');
+        });
+
+
+        // Event handlers for making changes to div
+        $('#1').click(function() {
+            if ($('.some-div')[0].contentEditable == 'inherit' || $('.some-div')[0].contentEditable == 'false') {
+                $('.some-div')[0].contentEditable = true;
+            } else {
+                $('.some-div')[0].contentEditable = false;
+            }
+        });
+        $('#2').click(function() {
+            var random_color = '#' + Math.floor(Math.random()*16777215).toString(16);
+            $('.some-div').css('background-color', random_color);
+        });
+        $('#3').click(function() {
+            var random_width = Math.random()*1000;
+            $('.some-div').width(random_width);
+        });
+        $('#4').click(function() {
+            $('.some-div').attr('border', Math.round(Math.random()*100));
+        });
+        $('#5').click(function() {
+            $('.some-div').toggleClass('some-class');
+        });
+
+    });
+</script>
+</body>
+</html>

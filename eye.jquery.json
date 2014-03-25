@@ -1,0 +1,30 @@
+{
+  "name": "eye",
+  "title": "jQuery Eye",
+  "version": "1.0.0",
+  "description": "jQuery.eye is a jQuery plugin for monitoring changes made to elements' DOM or CSS properties as well monitoring changes of the returned results from jQuery methods ran on a given element. When a change is detected a callback function is fired. Additionally provided are methods for pausing a watch, starting a watch, and retrieving a watch status associated with an element.",
+  "keywords": [
+    "watch", "event", "DOM", "jquery", "change", "properties", "attributes", "observer", "watcher", "polling", "monitoring"
+  ],
+  "author": {
+    "name": "Wil Neeley",
+    "url": "https://github.com/Xaxis"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Xaxis/jquery.eye/LICENSE.txt"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.4 <2.1"
+  },
+  "homepage": "https://github.com/Xaxis/jquery.eye",
+  "doc": "https://github.com/Xaxis/jquery.eye",
+  "maintainers": [
+    {
+      "name": "Wil Neeley",
+      "url": "https://github.com/Xaxis"
+    }
+  ]
+}

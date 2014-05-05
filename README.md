@@ -1,10 +1,10 @@
 # jQuery Eye
 
-Version 1.0.0
+Version 1.1.0
 
 ## Summary
 
-jQuery.eye is a jQuery plugin for monitoring changes made to elements' DOM or CSS properties as well monitoring changes of the returned results from jQuery methods ran on a given element. When a change is detected a callback function is fired. Additionally provided are methods for pausing a watch, starting a watch, and retrieving a watch status associated with an element.
+jQuery.eye is a jQuery plugin for monitoring changes made to elements' DOM or CSS properties as well as monitoring changes of the returned results from jQuery methods ran on a given element. When a change is detected a callback function is fired. Additionally provided are methods for pausing a watch, starting a watch, and retrieving a watch status associated with an element.
 
 ## Author
 
@@ -62,6 +62,15 @@ $('.some-div').eye({
         }
     }
 });
+
+
+// Run a callback immediately on registration
+$('.some-div').eye({
+    load: true,
+    'width()': function( oldVal, newVal, elm ) {
+        $(elm).prepend('<div>DIV\'s jQuery.width() return value changed from <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+    }
+}, 300);
 ```
 
 ### Using Eye Methods
@@ -99,3 +108,7 @@ See `example.html` in examples folder.
 #### Version 1.0.0
 
 * initial version
+
+#### Version 1.1.0
+
+* gave registered callbacks the ability to run once upon registration

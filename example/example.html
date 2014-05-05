@@ -95,7 +95,16 @@
             }
         });
 
-        
+
+        // Call the registered callback once on load (regardless if values changed)
+        $('.some-div').eye({
+            load: true,
+            'width()': function( oldVal, newVal, elm ) {
+                $(elm).prepend('<div>DIV\'s jQuery.width() return value changed from <strong>' + oldVal + '</strong> to <strong>' + newVal + '</strong></div>');
+            }
+        }, 300);
+
+
         // Event handlers for Eye.method buttons
         $('#01').click(function() {
             $('.some-div').prepend('<div>Watches on DIV <strong>paused</strong>.</div>');

@@ -17,7 +17,8 @@
 
       // The plugin's defaults
       defaults = {
-        speed: 100
+        speed: 100,
+        load: false
       },
 
       // The plugin's globals
@@ -37,6 +38,7 @@
     this._defaults = defaults;
     this._name = plugin_name;
     this._speed = speed;
+    this._load = this.options.load
     this.init();
   }
 
@@ -49,12 +51,13 @@
       _interval_func: null,
       _element: plugin.element,
       _speed: plugin._speed || plugin.options.speed,
+      _load: plugin.options.load,
       _status: 'active'
     };
 
     // Build an object containing the properties to watch
     $.each(plugin.options, function(index, value) {
-      if (index != 'speed') {
+      if (index != 'speed' && index != 'load') {
         var prop_object = {
           orig_object: value,
           orig_value: '',
@@ -120,7 +123,7 @@
     // Reference the interval function
     var intervalFunc = function() {
       $.each(watched_props, function(index, value) {
-        if (index != '_interval' && index != '_interval_func' && index != '_element' && index != '_speed' && index != '_status') {
+        if (index != '_interval' && index != '_interval_func' && index != '_element' && index != '_speed' && index != '_status' && index != '_load') {
           var new_value = value.orig_value;
 
           // Are we returning a jQuery function value?
@@ -168,10 +171,12 @@
         }
 
         // When the currently calculated value differs from the original, execute callback
-        if (new_value != value.orig_value) {
+        if (new_value != value.orig_value || plugin._load) {
           if ($.isFunction(value.orig_object)) {
+            plugin._load = false;
             value.orig_object( value.orig_value, new_value, value.elm_ref );
           } else if ($.isPlainObject(value.orig_object)) {
+            plugin._load = false;
             value.orig_object.onChange( value.orig_value, new_value, value.elm_ref, 'args' in value.orig_object ? value.orig_object.args : [] );
           }
 

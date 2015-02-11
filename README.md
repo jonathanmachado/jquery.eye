@@ -112,3 +112,7 @@ See `example.html` in examples folder.
 #### Version 1.1.0
 
 * gave registered callbacks the ability to run once upon registration
+
+#### Version 1.2.0
+
+* updated with build package via package.json

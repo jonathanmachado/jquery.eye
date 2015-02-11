@@ -8,7 +8,7 @@ jQuery.eye is a jQuery plugin for monitoring changes made to elements' DOM or CS
 
 ## Author
 
-Wil Neeley ( [@wilneeley](http://twitter.com/wilneeley) / [trestlemedia.net](http://www.trestlemedia.net) / [github.com](https://github.com/Xaxis) )
+Wil Neeley ( [@wilneeley](http://twitter.com/wilneeley) / [puppetlabs.com](http://www.puppetlabs.com) / [github.com](https://github.com/Xaxis) )
 
 ## Usage
 

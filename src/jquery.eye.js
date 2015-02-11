@@ -1,8 +1,8 @@
 /**
  * jQuery.eye()
  *
- * (a) Wil Neeley, Trestle Media, LLC.
- * Code may be freely distributed under the MIT license.
+ * (a) Wil Neeley
+ * (c) Code may be freely distributed under the MIT license.
  */
 ;(function ( $, window, document, undefined ) {
 
